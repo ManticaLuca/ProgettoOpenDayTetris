@@ -89,7 +89,6 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     public void settings() {
         size(500, 500);
-        System.out.println("Ridimensionato!!!!!!");
     }
 
     public void setup() {
