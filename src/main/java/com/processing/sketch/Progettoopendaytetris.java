@@ -93,7 +93,8 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     public void setup() {
         reset();
-        ciaoooaaxsa
+        ciaoooaaxs;
+        ciao;
     }
     /**
      * @brief loop
