@@ -97,11 +97,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         ciaooooo;
         ciao;
 
-
-
-
-
-        ghusavugt;
+        banana;
     }
     /**
      * @brief loop
