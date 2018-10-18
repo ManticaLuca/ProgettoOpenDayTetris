@@ -1,5 +1,4 @@
 package com.processing.sketch;
-////banananaa
 import processing.core.PApplet;
 
 import javax.swing.*;
