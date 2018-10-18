@@ -1,9 +1,15 @@
 package com.processing.sketch;
 import processing.core.PApplet;
-import javax.swing.*;
-import java.util.Random;
 
+
+import java.util.Random;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static javax.swing.JOptionPane.YES_OPTION;
+import static javax.swing.JOptionPane.NO_OPTION;
+import static javax.swing.JOptionPane.CLOSED_OPTION;
+import java.awt.Color;
 
 public class Progettoopendaytetris extends processing.core.PApplet {
     public static void main(String[] args) {
@@ -14,6 +20,10 @@ public class Progettoopendaytetris extends processing.core.PApplet {
  * @author Giacomo Orsenigo
  * @version 1.0
  */
+    /**
+     * giocatore
+     */
+    FileDiTesto file = new FileDiTesto();
     /**
      * giocatore
      */
@@ -41,7 +51,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     private int grandezzaQuadrato;
 
     /**
-     * variabile che va a 1 se il gioco è iniziato
+     * variabile che va a true se il gioco è iniziato
      */
     private boolean giocoPartito = false;
 
@@ -56,12 +66,6 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     private String parts[];
 
     /**
-     * vettore che indica la possibilita di spostamento delle forme nelle 4
-     * direzioni
-     */
-    private boolean vettore[];
-
-    /**
      * indica se il giocatore ha perso
      */
     private boolean gameOver = false;
@@ -69,32 +73,43 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     private char tasto;
 
-    /**
-     * @brief inizializza la finestra e gli attributi
-     * <p>
-     * crea l'interfaccia grafica e inizializza {@code grandezzaQuadrato},
-     * {@code myPort}, {@code arduino}, {@code contatoreSeriale} e {@code vettore},
-     * collabura con {@code Serial} e {@code USB}
-     */
 
+    /**
+     *@brief tasto premuto
+     *
+     * evento che si verifica quando viene premuto un tasto
+     * modifica {@code tasto} e {@code giocoPartito}
+     */
     public void keyPressed() {
-        System.out.println("Premutoooo");
         if (giocoPartito)
             tasto = Character.toLowerCase(key);
         else
             giocoPartito = true;
     }
 
+    /**
+     * @brief settings
+     *
+     * ridimensiona la finestra
+     */
     public void settings() {
         size(500, 500);
     }
 
+    /**
+     * @brief inizializza la finestra e gli attributi
+     *
+     * crea l'interfaccia grafica e inizializza gli attributi
+     * @see #reset()
+     */
     public void setup() {
+        grandezzaQuadrato = height / 20;  //Si assegna alla grandezza del quadrato 1/20 della larghezza della finestra
         reset();
     }
+
     /**
      * @brief loop
-     * <p>
+     *
      * funzione loop che visualizza il menù iniziale e disegna la schermata di
      * gioco al primo ciclo e continua a richiamare {@code faiMossa} finchè il
      * giocatore non perde. Incrementa a ogni ciclo {@code contatore} e modifica
@@ -117,60 +132,66 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             } else {
                 gameOver();
                 //else
-
-
             }
         }
         delay(delay / 5);
     }
 
+    /**
+     * @brief reset
+     *
+     * azzera glia attributi per iniziare una nuova partita.
+     * modifica {@code giocatore}, {@code giocoPartito}, {@code gameOver}, {@code forme} e {@code contatore}
+     */
     private void reset() {
-        giocatore.setNome(JOptionPane.showInputDialog("Inserisci il nome"));
-        grandezzaQuadrato = height / 20;  //Si assegna alla grandezza del quadrato 1/20 della larghezza della finestra
+        giocatore=new Giocatore();
+        giocatore.setNome(JOptionPane.showInputDialog(null, "Inserisci il nome", "Nome", QUESTION_MESSAGE));
+        if (giocatore.getNickname()==null) {    //se viene premuto annulla
+            System.err.println("Manca il nome");
+            System.exit(-1);
+        }
         background(0);
         giocoPartito = false;
-        vettore = new boolean[4];  //Inizializzo la grandezza del vettore a 4 poichÃ¨ al massimo ogni figura sarÃ  formata da 4 quadrati
         gameOver = false;
         forme = new Forme();
         contatore = 0;
-        loop();
+        loop(); //fa ripartire il loop
     }
 
+    /**
+     * @brief game over
+     *
+     * scrive su file il punteggio e chiede se ricominciare o visuaizzare la classifica (ordinata).
+     * collafora con la classe {@code FileDiTesto}
+     * @see FileDiTesto#scriviSuFileESuVettore(string, int)
+     * @see FileDiTesto#visualizzaClassifica()
+     */
     private void gameOver() {
-        FileDiTesto file = new FileDiTesto();
         background(0);
-        textSize(75);
-        fill(255);
-        text("GAME OVER", 40, 250);
         file.scriviSuFileESuVettore(giocatore.getNickname(), giocatore.getPunteggio());
-        noLoop();
-        delay(200);
-        if (JOptionPane.showConfirmDialog(null, "Ricominciare:", "Tetris", YES_NO_OPTION) == 0)
+        noLoop();  //ferma il loop
+        if (JOptionPane.showConfirmDialog(null, "Ricominciare:", "Tetris", YES_NO_OPTION) == YES_OPTION)
             reset();
         else {
-               try{
-                   text(file.getFileDiTesto(),100,200);
-               }catch(Exception e){}
-
+            file.ordina();
+            file.visualizzaClassifica();
         }
     }
 
     /**
      * @brief fa una mossa
-     * <p>
-     * ridisegna l'interfaccia e le figure ferme, sposta in basso la figura attiva e, se arriva in fondo, la disattivaFormaAttiva.
-     * Poi legge un valore da seriale e richiama i metodi {@code spostaSinistra()}, {@code spostaDestra()}, {@code spostaGiu()} e {@code ruota()}.
+     *
+     * ridisegna l'interfaccia e le figure ferme, sposta in basso la figura attiva e, se arriva in fondo, la disattiva
+     * Poi legge un valore da tastiera e richiama i metodi per spostare la figura.
      * Controlla se una riga è piena (la riga viene cancellata) o se la colonna è piena (il giocatore ha perso)
-     * Modifica {@code formaGen}, {@code vettore} e {@code gameOver}.
-     * Collabora con  {@code forme.getNumElQuadrati()}, {@code forme.getNumEl()}, {@code forma.getAttiva()}, {@code giocatore.getPunteggio()}, {@code forme.ricerca()},
-     * {@code forme.spostaFiguraAttiva()}, {@code forme.getForma()}, {@code forma.getPos()}, {@code forma.getColore()}, {@code forme.inserisciNuova()},
-     * {@code USB.leggi()}, {@code forme.disattivaFormaAttiva()}, {@code forme.controlloRigaCompleta()} e {@code forme.controlloColonna()}.
+     * Modifica {@code formaGen} e {@code gameOver}.
      * @see forme#controlloRigaCompleta(int)
      * @see forme#controlloColonna(int)
-     * @see #spostaSinistra()
-     * @see #spostaDestra()
+     * @see forme#spostaAttivaSinistra()
+     * @see forme#spostaAttivaDestra()
      * @see #spostaGiu()
-     * @see ruota()
+     * @see #spostaInFondo()
+     * @see forme#ruotaFiguraAttiva()
      */
     void faiMossa() {
         //disegno le figure passive e sposto se possibile verso il basso quella attiva che altrimenti verrÃ  disattivata
@@ -179,6 +200,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             formaGen = forme.getFormaAttiva();
             spostaGiu();
             checkFormaAttiva();
+            checkColonna();
         }
         repaint();
         System.out.println(tasto);
@@ -191,6 +213,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
                 break;
             case 's':
                 spostaGiu();
+                giocatore.addPunteggio(10);
                 break;
             case 'w':
                 forme.ruotaFiguraAttiva();
@@ -204,51 +227,82 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
         if (contatore % 5 == 0) {
             //inizio dei controlli per le righe e le colonne
-            boolean controlloRiga = false;
-            {
-                int i = height - grandezzaQuadrato;
-                while (i >= 0) {
-                    controlloRiga = forme.controlloRigaCompleta(i);
-                    if (controlloRiga) {
-                        //quando la riga Ã¨ completa si modifica il punteggio del giocatore
-                        pushMatrix();
-                        fill(255);
-                        text(giocatore.getPunteggio(), 3 * width / 5 + grandezzaQuadrato, 6 * grandezzaQuadrato + 150);
-                        popMatrix();
-
-                        giocatore.setPunteggio(100);
-
-                        //ridisegno figure spostate dopo aver cancellato la riga completata
-                        //repaint();
-                    } else
-                        i -= grandezzaQuadrato;
-                }
-            }
-            //controllo un possibile gameOver in base al riempimento delle varie colonne
-            boolean controlloColonna;
-            for (int i = 0; i < 3 * width / 5; i += grandezzaQuadrato) {
-                controlloColonna = forme.controlloColonna(i);
-                if (controlloColonna) {
-                    gameOver = true;
-                    break;
-                }
-            }
+            checkRiga();
+            checkColonna();
         }
         checkFormaAttiva();
         tasto = 0;
     }
 
+    /**
+     * @brief controllo riga
+     *
+     * controlla se la riga è completa
+     * @see forme#controlloRigaCompleta(int)
+     */
+    private void checkRiga() {
+        boolean controlloRiga = false;
+        {
+            int i = height - grandezzaQuadrato;
+            while (i >= 0) {
+                controlloRiga = forme.controlloRigaCompleta(i);
+                if (controlloRiga) {
+                    //quando la riga Ã¨ completa si modifica il punteggio del giocatore
+                    pushMatrix();
+                    fill(255);
+                    text(giocatore.getPunteggio(), 3 * width / 5 + grandezzaQuadrato, 6 * grandezzaQuadrato + 150);
+                    popMatrix();
+
+                    giocatore.addPunteggio(100);
+
+                    //ridisegno figure spostate dopo aver cancellato la riga completata
+                    //repaint();
+                } else
+                    i -= grandezzaQuadrato;
+            }
+        }
+    }
+
+    /**
+     * @brief controllo colonna
+     *
+     * controllo un possibile gameOver in base al riempimento delle varie colonne
+     * @see forme#controlloColonna(int)
+     */
+    private void checkColonna() {
+        boolean controlloColonna;
+        for (int i = 0; i < 3 * width / 5; i += grandezzaQuadrato) {
+            controlloColonna = forme.controlloColonna(i);
+            if (controlloColonna) {
+                gameOver = true;
+                break;
+            }
+        }
+    }
+
+    /**
+     * @brief aggiunge nuove forme
+     *
+     * controlla se ci sono forme attive e, in cano negativo ne aggiunge una nuova
+     * collabolra con {@code forme.disattivaFormaAttiva()} e {@code forme.getForma(int)}
+     * @see forme#inserisciNuova()
+     */
     private void checkFormaAttiva() {
         if (forme.getFormaAttiva() == null) {
             forme.inserisciNuova();
             formaGen = forme.getForma(forme.getNumEl() - 1);
-        }else if( forme.getFormaAttiva().getNumElQuadrati() == 0){
+        } else if ( forme.getFormaAttiva().getNumElQuadrati() == 0) {
             forme.disattivaFormaAttiva();
             forme.inserisciNuova();
             formaGen = forme.getForma(forme.getNumEl() - 1);
         }
     }
 
+    /**
+     * @brief ridisegna
+     *
+     * ridisegna la finestra di gioco
+     */
     private void repaint() {
         for (int k = 0; k < forme.getNumEl(); k++) {
             formaGen = forme.getForma(k);
@@ -257,7 +311,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
                 parts = formaGen.getPos(j).split(";");
                 pushMatrix();
                 fill((formaGen.getColore()).getR(), (formaGen.getColore()).getG(), (formaGen.getColore()).getB());
-                rect(Float.parseFloat(parts[0]), Float.parseFloat(parts[1]), grandezzaQuadrato, grandezzaQuadrato);
+                rect(Float.parseFloat(parts[0]), Float.parseFloat(parts[1]), grandezzaQuadrato, grandezzaQuadrato, 1);
                 popMatrix();
             }
         }
@@ -265,35 +319,37 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
 
     /**
-     * @param valoreSeriale valore che rappresenta la direzione ('g' per giù)
      * @brief sposta una forma in basso
-     * <p>
-     * sposta e ridisegna una forma in basso dopo aver controllato il valore
-     * passato come parametro e che sia possibile (posto non occupato da
-     * un'altra forma e dentro la finestra). Disattiva la forma se è arrivata in
-     * fondo. Modifica {@code parts} e {@code formaGen}
-     * @see forme#spostaFiguraAttiva(char)
+     *
+     * sposta una forma in basso e la disattiva se è arrivata in
+     * fondo. Collabora con {@code forme.spostaAttivaGiu()}
+     * @see forme#spostaAttivaGiu()
      */
     public void spostaGiu() {
         if (!forme.spostaAttivaGiu())
             forme.disattivaFormaAttiva();
     }
-
+    /**
+     * @brief sposta una forma in fondo
+     *
+     * sposta una forma in fondo alla griglia e la disattiva. Aggiunge 20 al punteggio.
+     *Collabora con {@code forme.spostaAttivaGiu()}
+     * @see forme#spostaAttivaGiu()
+     */
     public void spostaInFondo() {
-        for (int i = 0; i < height / grandezzaQuadrato; i++) {
-            if (!forme.spostaAttivaGiu())
+        for (int i = 0; i < 500; i++) {
+            giocatore.addPunteggio(10);
+            if (!forme.spostaAttivaGiu()) {
+                forme.disattivaFormaAttiva();
                 break;  //per velocizzare
+            }
         }
-        giocatore.setPunteggio(20);
-        //repaint();
     }
 
     /**
-     * @return true se il valore letto è 1
      * @brief menù iniziale
-     * <p>
-     * disegna il menù iniziale e legge un valore da seriale, modifica
-     * {@code valoreSeriale} e {@code contatoreSeriale}, collabora con {@code USB}
+     *
+     * disegna il menù iniziale e scrive le istruzioni
      */
     public void menuIniziale() {
         textSize(50);
@@ -317,7 +373,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief disegna la schermata di gioco
-     * <p>
+     *
      * disegna la schermata di gioco con il nome del giocatore e il punteggio
      */
     public void schermataDiGioco() {
@@ -328,18 +384,31 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         rect(0, 0, 3 * width / 5, height);
 
 
-        fill(255);
+        fill(194, 194, 214);
         rect(3 * width / 5, 0, 2 * width / 5, height);
-
+        stroke(128, 128, 128);
+        for (int i =0; i<height; i+=grandezzaQuadrato) {
+            line(0, i, 3 * width / 5, i);
+        }
+        for (int i =0; i< 3 * width / 5; i+=grandezzaQuadrato) {
+            line(i, 0, i, height);
+        }
         //scrittura dell'interfaccia con utente -punteggio, nickname -
 
-        fill(255, 0, 0);
+        fill(77, 77, 255);
         textSize(24);
-        text(giocatore.getNickname(), 3 * width / 5 + grandezzaQuadrato, 2 * grandezzaQuadrato + 150);
-        text("Punteggio", 3 * width / 5 + grandezzaQuadrato, 4 * grandezzaQuadrato + 150);
-        text(giocatore.getPunteggio(), 3 * width / 5 + grandezzaQuadrato, 6 * grandezzaQuadrato + 150);
+        if (!giocatore.getNickname().toUpperCase().equals("")) {
+            text("Giocatore:", 3 * width / 5 + grandezzaQuadrato, 1 * grandezzaQuadrato + 150);
+            text(giocatore.getNickname().toUpperCase(), 3 * width / 5 + grandezzaQuadrato, 2 * grandezzaQuadrato + 150);
+            text("PUNTEGGIO:", 3 * width / 5 + grandezzaQuadrato, 5 * grandezzaQuadrato + 150);
+            text("        " + giocatore.getPunteggio(), 3 * width / 5 + grandezzaQuadrato, 6 * grandezzaQuadrato + 150);
+        } else {
+            text("Giocatore:", 3 * width / 5 + grandezzaQuadrato, 1 * grandezzaQuadrato + 150);
+            text("Sconosciuto", 3 * width / 5 + grandezzaQuadrato, 2 * grandezzaQuadrato + 150);
+            text("PUNTEGGIO:", 3 * width / 5 + grandezzaQuadrato, 5 * grandezzaQuadrato + 150);
+            text("        " + giocatore.getPunteggio(), 3 * width / 5 + grandezzaQuadrato, 6 * grandezzaQuadrato + 150);
+        }
         popMatrix();
     }
-
 
 }

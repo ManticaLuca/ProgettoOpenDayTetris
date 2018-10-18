@@ -54,7 +54,7 @@ public class Giocatore {
      *
      * @param punteggio nuovo punteggio
      */
-    public void setPunteggio(int punteggio) {
+    public void addPunteggio(int punteggio) {
         this.punteggio += punteggio;
     }
 

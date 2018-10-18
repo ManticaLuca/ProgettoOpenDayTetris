@@ -34,7 +34,7 @@ public class Forme {
     public void inserisciNuova() {
         elementi[numEl] = new Forma();
         numEl++;
-        switch (elementi[numEl - 1].getForma()) {
+        switch (elementi[numEl - 1].getTipo()) {
             case 0:
                 elementi[numEl - 1].setPos(100, 0, 0);
                 elementi[numEl - 1].setPos(125, 0, 1);
@@ -140,7 +140,7 @@ public class Forme {
         println("PRIMA Forma = " + forma.toString());
         println("PRIMA elementi = " + elementi[numEl - 1].toString());
 
-        int Forma = forma.getForma();
+        int Forma = forma.getTipo();
         /*
          * set della forma; 0 linea; 1 quadrato; 2 forma "l" normale; 3 forma
          * "l" rovesciata; 4 forma "z" normale; 5 forma "z" rovesciata; 6 forma

@@ -1,5 +1,7 @@
 package com.processing.sketch;
 
+
+
 import java.util.Random;
 
 /**
@@ -49,12 +51,9 @@ public class Forma {
         colore = new Colore();
         verso = 1;
         attiva = true;
-        colore.calcolaRandom();
         numElQuadrati=4;
         /**
-         * set della forma; 0 linea; 1 quadrato; 2 forma "l" normale; 3 forma
-         * "l" rovesciata; 4 forma "z" normale; 5 forma "z" rovesciata; 6 forma
-         * "t";
+         * set della forma; 0 linea; 1 quadrato; 2 forma "l"; 3 forma "j"; 4 forma "z"; 5 forma "s"; 6 forma"t";
          */
         Random random = new Random();
         forma = random.nextInt(7);
@@ -63,6 +62,7 @@ public class Forma {
             insiemeQuadrati[i] = new Quadrato();
             //numElQuadrati++;
         }
+        colore.setColore(this.getTipo());
     }
 
     /**
@@ -102,14 +102,14 @@ public class Forma {
      * @brief metodo per cancellare un quadrato in caso sia presente una riga completa
      */
     public void cancellaQuadrato(int posY) {
-        int i=0;
+        int i = 0;
         while (i < numElQuadrati) {
             if (insiemeQuadrati[i].getPosizioneY() == posY) {
                 for (int j = i; j < numElQuadrati - 1; j++) {
                     insiemeQuadrati[j] = insiemeQuadrati[j + 1];
                 }
                 numElQuadrati--;
-            }else
+            } else
                 i++;
         }
     }
@@ -151,7 +151,7 @@ public class Forma {
      * @return forma numero che rappresenta il tipo di forma
      * @brief metodo che ritorna il tipo di forma dell'oggetto forma
      */
-    public int getForma() {
+    public int getTipo() {
         return forma;
     }
 

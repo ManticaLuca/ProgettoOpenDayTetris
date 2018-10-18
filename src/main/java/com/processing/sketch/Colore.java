@@ -15,35 +15,35 @@ public class Colore {
     /**
      * colore RED
      */
-    private int r;
+    private int red;
     /**
      * colore GREEN
      */
-    private int g;
+    private int green;
     /**
      * colore BLUE
      */
-    private int b;
+    private int blue;
 
     /**
      * @brief costruttore vuoto
      */
     public Colore() {
-        r = 0;
-        g = 0;
-        b = 0;
+        red = 0;
+        green = 0;
+        blue = 0;
     }
 
     /**
-     * @param c1 R
-     * @param c2 G
-     * @param c3 B
+     * @param r R
+     * @param g G
+     * @param b B
      * @brief costruttore della classe Colore
      */
-    public Colore(int c1, int c2, int c3) {
-        r = c1;
-        g = c2;
-        b = c3;
+    public Colore(int r, int g, int b) {
+        red = r;
+        green = g;
+        blue = b;
     }
 
     /**
@@ -51,9 +51,9 @@ public class Colore {
      * @brief effettua una copia del colore dato
      */
     public Colore(Colore c) {
-        r = c.getR();
-        g = c.getG();
-        b = c.getB();
+        red = c.getR();
+        green = c.getG();
+        blue = c.getB();
     }
 
     /**
@@ -61,7 +61,7 @@ public class Colore {
      * @brief restituisce il valore di R
      */
     public int getR() {
-        return r;
+        return red;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Colore {
      * @brief restituisce il valore di G
      */
     public int getG() {
-        return g;
+        return green;
     }
 
     /**
@@ -77,16 +77,41 @@ public class Colore {
      * @brief restituisce il valore di B
      */
     public int getB() {
-        return b;
+        return blue;
     }
 
     /**
-     * @brief genera un colore calcolando valori random di R, G e B e li setta come attributi
+     * @brief imposta il colore della forma dato il numero rappresentante il tipo: 0 linea azzurra; 1 quadrato giallo; 2 forma "l" arancione; 3 forma "j" blu; 4 forma "z" rosso;
+     * 5 forma "s" verde; 6 forma"t" viola;
      */
-    public void calcolaRandom() {
-        Random random = new Random();
-        r = random.nextInt(254);
-        g = random.nextInt(254);
-        b = random.nextInt(254);
+    public void setColore(int tipo) {
+        switch(tipo) {
+            case 0:
+                red = 51;
+                green = 204;
+                blue = 255;
+                break;
+            case 1:
+                red = 255;
+                green = 255;
+                break;
+            case 2:
+                red = 255;
+                green = 153;
+                break;
+            case 3:
+                blue = 255;
+                break;
+            case 4:
+                red = 255;
+                break;
+            case 5:
+                green = 255;
+                break;
+            case 6:
+                red = 204;
+                blue = 253;
+                break;
+        }
     }
 }
