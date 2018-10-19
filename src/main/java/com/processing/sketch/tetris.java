@@ -1,16 +1,13 @@
 package com.processing.sketch;
 
-import javax.swing.*;
 
 import static com.processing.sketch.gameConstants.*;
-import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 public class tetris {
     /**
      * giocatore
      */
     private Giocatore giocatore = new Giocatore();
-
 
     /**
      * oggetto della classe {@code forme} che contiene tutte le forme del gioco
@@ -24,12 +21,6 @@ public class tetris {
      * indica se il giocatore ha perso
      */
     private boolean gameOver = false;
-
-
-    /**
-     * memorizza la forma in movimento
-     */
-    private Forma formaGen;
 
 
     /**
@@ -57,7 +48,6 @@ public class tetris {
     public void faiMossa(int tasto) {
         //disegno le figure passive e sposto se possibile verso il basso quella attiva che altrimenti verrÃ  disattivata
         if (contatore == 1 || contatore % mossePerTurno == 0) {
-            formaGen = forme.getFormaAttiva();
             spostaGiu();
             checkFormaAttiva();
             checkColonna();
@@ -151,11 +141,9 @@ public class tetris {
     private void checkFormaAttiva() {
         if (forme.getFormaAttiva() == null) {
             forme.inserisciNuova();
-            formaGen = forme.getForma(forme.getNumEl() - 1);
         } else if (forme.getFormaAttiva().getNumElQuadrati() == 0) {
             forme.disattivaFormaAttiva();
             forme.inserisciNuova();
-            formaGen = forme.getForma(forme.getNumEl() - 1);
         }
     }
 
@@ -179,7 +167,7 @@ public class tetris {
      * @see forme#spostaAttivaGiu()
      */
     public void spostaInFondo() {
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < height/grandezzaQuadrato; i++) {
             giocatore.addPunteggio(10);
             if (!forme.spostaAttivaGiu()) {
                 forme.disattivaFormaAttiva();

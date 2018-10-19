@@ -157,12 +157,12 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      */
     private void repaintForme() {
         for (int k = 0; k < game.getForme().getNumEl(); k++) {
-            Forma formaGen = game.getForme().getForma(k);
-            for (int j = 0; j < formaGen.getNumElQuadrati(); j++) //disegno figura passiva
+            Forma forma = game.getForme().getForma(k);
+            for (int j = 0; j < forma.getNumElQuadrati(); j++) //disegno figura passiva
             {
-                parts = formaGen.getPos(j).split(";");
+                parts = forma.getPos(j).split(";");
                 pushMatrix();
-                fill((formaGen.getColore()).getR(), (formaGen.getColore()).getG(), (formaGen.getColore()).getB());
+                fill((forma.getColore()).getR(), (forma.getColore()).getG(), (forma.getColore()).getB());
                 rect(Float.parseFloat(parts[0]), Float.parseFloat(parts[1]), grandezzaQuadrato, grandezzaQuadrato, 1);
                 popMatrix();
             }
