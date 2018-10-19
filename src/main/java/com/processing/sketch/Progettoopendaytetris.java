@@ -238,7 +238,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             case 2:
                 forme.ruotaFiguraAttiva();
                 break;
-            case ' ':
+            case 4:
                 spostaInFondo();
                 break;
             default:
