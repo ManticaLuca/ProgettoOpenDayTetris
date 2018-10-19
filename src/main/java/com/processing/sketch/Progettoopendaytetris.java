@@ -2,7 +2,7 @@ package com.processing.sketch;
 
 import processing.core.PApplet;
 
-//banana
+
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -14,7 +14,7 @@ import static com.processing.sketch.gameConstants.*;
 
 public class Progettoopendaytetris extends processing.core.PApplet {
     public static void main(String[] args) {
-        PApplet.main("com.processing.sketch.Progettoopendaytetris", args);
+        PApplet.main("com.processing.sketch.Progettoopendaytetris", args);  /////////////per intellij
     }
 
     /**
@@ -24,7 +24,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      */
     inputTastiera tastiera = new inputTastiera();
 
-    public static PApplet programmaProcessing;
+    public static PApplet programmaProcessing;  //////////per intellij
 
 
     private FileDiTesto file = new FileDiTesto(sketchPath());
@@ -76,7 +76,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      */
     public void setup() {
         reset();
-        programmaProcessing = this;
+        programmaProcessing = this; ///////////////per intellij
     }
 
     /**
