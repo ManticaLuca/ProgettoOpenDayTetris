@@ -59,7 +59,7 @@ public class tetris {
     }
     public void faiMossa(int tasto) {
         //disegno le figure passive e sposto se possibile verso il basso quella attiva che altrimenti verrÃ  disattivata
-        if (contatore == 1 || contatore % 5 == 0) {
+        if (contatore == 1 || contatore % mossePerTurno == 0) {
             formaGen = forme.getFormaAttiva();
             spostaGiu();
             checkFormaAttiva();
@@ -88,7 +88,7 @@ public class tetris {
                 break;
         }
 
-        if (contatore % 5 == 0) {
+        if (contatore % mossePerTurno == 0) {
             //inizio dei controlli per le righe e le colonne
             checkRiga();
             checkColonna();

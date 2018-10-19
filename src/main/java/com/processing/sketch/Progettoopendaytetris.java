@@ -3,18 +3,12 @@ package com.processing.sketch;
 import processing.core.PApplet;
 
 //banana
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
-import static javax.swing.JOptionPane.NO_OPTION;
-import static javax.swing.JOptionPane.CLOSED_OPTION;
-
-import java.awt.Color;
 
 import static com.processing.sketch.gameConstants.*;
 
@@ -39,11 +33,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      * variabile che va a true se il gioco è iniziato
      */
     private boolean giocoPartito = false;
-    /**
-     * D
-     * tempo da aspettare tra una mossa e l'altra (alla fine del loop)
-     */
-    private int delay = 300;
+
 
 
     /**
@@ -107,13 +97,13 @@ public class Progettoopendaytetris extends processing.core.PApplet {
              * termina la partita
              */
             game.faiMossa(tasto);
+            repaintForme();
             if (game.isGameOver())
                 gameOver();
             //else
         }
-        tasto=-1;
-        repaint();
-        delay(delay / 5);
+        tasto = -1;
+        delay(velocitaDiscesa/mossePerTurno);
     }
 
     /**
@@ -165,7 +155,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      * <p>
      * ridisegna la finestra di gioco
      */
-    private void repaint() {
+    private void repaintForme() {
         for (int k = 0; k < game.getForme().getNumEl(); k++) {
             Forma formaGen = game.getForme().getForma(k);
             for (int j = 0; j < formaGen.getNumElQuadrati(); j++) //disegno figura passiva

@@ -9,4 +9,8 @@ public class gameConstants {
      */
     public static final int grandezzaQuadrato= height / 20;
 
+    public static final int velocitaDiscesa=500;
+    public static final int mossePerTurno=5;
+
+
 }
