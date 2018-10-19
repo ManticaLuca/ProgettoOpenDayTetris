@@ -1,5 +1,5 @@
 package com.processing.sketch;
-sd
+
 import processing.core.PApplet;
 
 import java.io.BufferedReader;
@@ -9,6 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+/**
+ * per intellij
+ */
+import static processing.core.PApplet.createReader;
+import static processing.core.PApplet.split;
+import static processing.core.PConstants.TAB;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,8 +29,9 @@ import java.io.IOException;
  */
 
 
-public class FileDiTesto extends PApplet{
+public class FileDiTesto {
 
+    File file;
     /**
      * @brief numero di elementi all'interno del vettore
      */
@@ -42,7 +50,7 @@ public class FileDiTesto extends PApplet{
     /**
      * @brief costruttore, inizializzazione vettore
      */
-    public FileDiTesto() {
+    public FileDiTesto(String path) {
         /**
          * numero elementiPresenti nel vettore
          */
@@ -52,6 +60,17 @@ public class FileDiTesto extends PApplet{
          *inserisco dimensione al vettore
          */
         vettore = new Giocatore[MAX];
+
+
+        file = new File(path + "\\classifica.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("ERRORE FILE");
+        }
     }
 
     /**
@@ -73,9 +92,6 @@ public class FileDiTesto extends PApplet{
             /*
              * preparo il file per la scrittura
              */
-            File file = new File("classifica.txt");
-            if (!file.exists())
-                file.createNewFile();
 
             FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -133,34 +149,37 @@ public class FileDiTesto extends PApplet{
      * @return tuttoIlFile variabile contenente il file txt
      * @brief copia il file txt dentro a una variabile string
      */
-    public String getFileDiTesto() throws FileNotFoundException, IOException {
-
-        /*
-         * preparo per leggere il file
-         */
-        File file = new File("classifica.txt");
-        BufferedReader reader = new BufferedReader(new FileReader("classifica.txt"));
-        String line;
-
-        /*
-         * leggo la riga
-         */
-        line = reader.readLine();
+    public String getFileDiTesto()  {
 
         /*
          * dichiaro variabile di tipo String per salvare poi in futuro tutto il file
          */
         String tuttoIlFile = "";
+        try {
+            /*
+             * preparo per leggere il file
+             */
+            BufferedReader reader = new BufferedReader(new FileReader(file.getPath()));
+            String line;
 
-        /*
-         * salvo ogni riga del file dentro una variabile finchè il file non contiene alcuna riga
-         */
-        while (line != null) {
-
-            tuttoIlFile = tuttoIlFile + line + ";";
+            /*
+             * leggo la riga
+             */
             line = reader.readLine();
-        }
 
+
+            /*
+             * salvo ogni riga del file dentro una variabile finchè il file non contiene alcuna riga
+             */
+            while (line != null) {
+
+                tuttoIlFile = tuttoIlFile + line + ";";
+                line = reader.readLine();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+            System.err.println("ERRORE FILE");
+        }
         /*
          * returna tutto il file dentro una variabile
          */
@@ -189,9 +208,7 @@ public class FileDiTesto extends PApplet{
             /*
              * dichiaro per leggere il file classifica.txt
              */
-            BufferedReader reader = new BufferedReader(new FileReader("classifica.txt"));
-            File file = new File("classifica.txt");
-            File file2 = new File("temp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file.getPath()));
             FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
 
@@ -256,41 +273,40 @@ public class FileDiTesto extends PApplet{
         }
     }
 
-    /**
-     * @brief visualizza completamente il file txt
-     */
-    public void visualizzaClassifica() {
-        String line;
-        try {
-            int i = 0, y = 100, x = 250;
-            BufferedReader reader = createReader("classifica.txt");
-            //prendo la prima linea
-            line = reader.readLine();
-
-            //prendo ogni linea del file e la scrivo incrementando la posizione
-            //continua fino a quando il file è finito
-            while (line != null) {
-                text("alla posizione " + i + ": " + line, x, y);
-                i++;
-                y = y + 20;
-                line = reader.readLine();
-            }
-        }
-
-        //stampa l'errore
-        catch (IOException e) {
-            e.printStackTrace();
-            line = null;
-        }
-        if (line == null) {
-            // Stop reading because of an error or file is empty
-            noLoop();
-        } else {
-            String[] pieces = split(line, TAB);
-            int x = Integer.parseInt(pieces[0]);
-            int y = Integer.parseInt(pieces[1]);
-            point(x, y);
-        }
-    }
+//    /**
+//     * @brief visualizza completamente il file txt
+//     */
+//    public void visualizzaClassifica() {
+//        String line;
+//        try {
+//            int i = 0, y = 100, x = 250;
+//            BufferedReader reader = createReader(new File(file.getPath()));
+//            //prendo la prima linea
+//            line = reader.readLine();
+//
+//            //prendo ogni linea del file e la scrivo incrementando la posizione
+//            //continua fino a quando il file è finito
+//            while (line != null) {
+//                text("alla posizione " + i + ": " + line, x, y);
+//                i++;
+//                y = y + 20;
+//                line = reader.readLine();
+//            }
+//        }
+//
+//        //stampa l'errore
+//        catch (IOException e) {
+//            e.printStackTrace();
+//            line = null;
+//        }
+//        if (line == null) {
+//            // Stop reading because of an error or file is empty
+//        } else {
+//            String[] pieces = split(line, TAB);
+//            int x = Integer.parseInt(pieces[0]);
+//            int y = Integer.parseInt(pieces[1]);
+//            point(x, y);
+//        }
+//    }
 
 }

@@ -1,14 +1,19 @@
 package com.processing.sketch;
+
 import processing.core.PApplet;
 
 //banana
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import javax.swing.JOptionPane;
+
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.NO_OPTION;
 import static javax.swing.JOptionPane.CLOSED_OPTION;
+
 import java.awt.Color;
 
 public class Progettoopendaytetris extends processing.core.PApplet {
@@ -23,7 +28,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     /**
      * giocatore
      */
-    FileDiTesto file = new FileDiTesto();
+    FileDiTesto file = new FileDiTesto(sketchPath());
     /**
      * giocatore
      */
@@ -75,8 +80,8 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
 
     /**
-     *@brief tasto premuto
-     *
+     * @brief tasto premuto
+     * <p>
      * evento che si verifica quando viene premuto un tasto
      * modifica {@code tasto} e {@code giocoPartito}
      */
@@ -89,16 +94,19 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief settings
-     *
+     * <p>
      * ridimensiona la finestra
      */
     public void settings() {
         size(500, 500);
+        println(sketchPath());
+        sketchPath("C:\\Users\\giaco\\Desktop\\intellij\\ProgettoOpenDayTetris\\src\\main\\java\\com\\processing\\sketch");
+        println(sketchPath());
     }
 
     /**
      * @brief inizializza la finestra e gli attributi
-     *
+     * <p>
      * crea l'interfaccia grafica e inizializza gli attributi
      * @see #reset()
      */
@@ -109,7 +117,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief loop
-     *
+     * <p>
      * funzione loop che visualizza il menù iniziale e disegna la schermata di
      * gioco al primo ciclo e continua a richiamare {@code faiMossa} finchè il
      * giocatore non perde. Incrementa a ogni ciclo {@code contatore} e modifica
@@ -139,14 +147,14 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief reset
-     *
+     * <p>
      * azzera glia attributi per iniziare una nuova partita.
      * modifica {@code giocatore}, {@code giocoPartito}, {@code gameOver}, {@code forme} e {@code contatore}
      */
     private void reset() {
-        giocatore=new Giocatore();
+        giocatore = new Giocatore();
         giocatore.setNome(JOptionPane.showInputDialog(null, "Inserisci il nome", "Nome", QUESTION_MESSAGE));
-        if (giocatore.getNickname()==null) {    //se viene premuto annulla
+        if (giocatore.getNickname() == null) {    //se viene premuto annulla
             System.err.println("Manca il nome");
             System.exit(-1);
         }
@@ -160,7 +168,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief game over
-     *
+     * <p>
      * scrive su file il punteggio e chiede se ricominciare o visuaizzare la classifica (ordinata).
      * collafora con la classe {@code FileDiTesto}
      * @see FileDiTesto#scriviSuFileESuVettore(string, int)
@@ -174,13 +182,17 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             reset();
         else {
             file.ordina();
-            file.visualizzaClassifica();
+            String classifica = file.getFileDiTesto();
+            String[] pos = classifica.split(";");
+            for (int i = 0; i<pos.length;i++) {
+                text("alla posizione " + i + ": " + pos[i], 100, (i+1)*25);
+            }
         }
     }
 
     /**
      * @brief fa una mossa
-     *
+     * <p>
      * ridisegna l'interfaccia e le figure ferme, sposta in basso la figura attiva e, se arriva in fondo, la disattiva
      * Poi legge un valore da tastiera e richiama i metodi per spostare la figura.
      * Controlla se una riga è piena (la riga viene cancellata) o se la colonna è piena (il giocatore ha perso)
@@ -236,7 +248,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief controllo riga
-     *
+     * <p>
      * controlla se la riga è completa
      * @see forme#controlloRigaCompleta(int)
      */
@@ -265,7 +277,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief controllo colonna
-     *
+     * <p>
      * controllo un possibile gameOver in base al riempimento delle varie colonne
      * @see forme#controlloColonna(int)
      */
@@ -282,7 +294,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief aggiunge nuove forme
-     *
+     * <p>
      * controlla se ci sono forme attive e, in cano negativo ne aggiunge una nuova
      * collabolra con {@code forme.disattivaFormaAttiva()} e {@code forme.getForma(int)}
      * @see forme#inserisciNuova()
@@ -291,7 +303,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         if (forme.getFormaAttiva() == null) {
             forme.inserisciNuova();
             formaGen = forme.getForma(forme.getNumEl() - 1);
-        } else if ( forme.getFormaAttiva().getNumElQuadrati() == 0) {
+        } else if (forme.getFormaAttiva().getNumElQuadrati() == 0) {
             forme.disattivaFormaAttiva();
             forme.inserisciNuova();
             formaGen = forme.getForma(forme.getNumEl() - 1);
@@ -300,7 +312,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief ridisegna
-     *
+     * <p>
      * ridisegna la finestra di gioco
      */
     private void repaint() {
@@ -320,7 +332,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief sposta una forma in basso
-     *
+     * <p>
      * sposta una forma in basso e la disattiva se è arrivata in
      * fondo. Collabora con {@code forme.spostaAttivaGiu()}
      * @see forme#spostaAttivaGiu()
@@ -329,11 +341,12 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         if (!forme.spostaAttivaGiu())
             forme.disattivaFormaAttiva();
     }
+
     /**
      * @brief sposta una forma in fondo
-     *
+     * <p>
      * sposta una forma in fondo alla griglia e la disattiva. Aggiunge 20 al punteggio.
-     *Collabora con {@code forme.spostaAttivaGiu()}
+     * Collabora con {@code forme.spostaAttivaGiu()}
      * @see forme#spostaAttivaGiu()
      */
     public void spostaInFondo() {
@@ -348,7 +361,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief menù iniziale
-     *
+     * <p>
      * disegna il menù iniziale e scrive le istruzioni
      */
     public void menuIniziale() {
@@ -373,7 +386,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @brief disegna la schermata di gioco
-     *
+     * <p>
      * disegna la schermata di gioco con il nome del giocatore e il punteggio
      */
     public void schermataDiGioco() {
@@ -387,10 +400,10 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         fill(194, 194, 214);
         rect(3 * width / 5, 0, 2 * width / 5, height);
         stroke(128, 128, 128);
-        for (int i =0; i<height; i+=grandezzaQuadrato) {
+        for (int i = 0; i < height; i += grandezzaQuadrato) {
             line(0, i, 3 * width / 5, i);
         }
-        for (int i =0; i< 3 * width / 5; i+=grandezzaQuadrato) {
+        for (int i = 0; i < 3 * width / 5; i += grandezzaQuadrato) {
             line(i, 0, i, height);
         }
         //scrittura dell'interfaccia con utente -punteggio, nickname -
