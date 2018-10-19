@@ -1,21 +1,12 @@
 package com.processing.sketch;
 
-import processing.core.PApplet;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * per intellij
- */
-import static processing.core.PApplet.createReader;
-import static processing.core.PApplet.split;
-import static processing.core.PConstants.TAB;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
