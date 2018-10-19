@@ -11,9 +11,6 @@ public class tetris {
      */
     private Giocatore giocatore = new Giocatore();
 
-    public Giocatore getGiocatore() {
-        return giocatore;
-    }
 
     /**
      * oggetto della classe {@code forme} che contiene tutte le forme del gioco
@@ -126,10 +123,6 @@ public class tetris {
         }
     }
 
-    public Forme getForme() {
-        return forme;
-    }
-
     /**
      * @brief controllo colonna
      * <p>
@@ -198,4 +191,13 @@ public class tetris {
     public boolean isGameOver() {
         return gameOver;
     }
+
+    public Giocatore getGiocatore() {
+        return giocatore;
+    }
+
+    public Forme getForme() {
+        return forme;
+    }
+
 }
