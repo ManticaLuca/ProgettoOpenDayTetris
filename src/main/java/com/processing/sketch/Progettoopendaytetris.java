@@ -20,12 +20,13 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     public static void main(String[] args) {
         PApplet.main("com.processing.sketch.Progettoopendaytetris", args);
     }
-/**
- * @file
- * @author Giacomo Orsenigo
- * @version 1.0
- */
-    inputTastiera tastiera=new inputTastiera();
+
+    /**
+     * @file
+     * @author Giacomo Orsenigo
+     * @version 1.0
+     */
+    inputTastiera tastiera = new inputTastiera();
 
     public static PApplet programmaProcessing;
     /**
@@ -53,7 +54,6 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      * tempo da aspettare tra una mossa e l'altra (alla fine del loop)
      */
     private int delay = 300;
-
 
 
     /**
@@ -119,7 +119,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     public void setup() {
         grandezzaQuadrato = height / 20;  //Si assegna alla grandezza del quadrato 1/20 della larghezza della finestra
         reset();
-        programmaProcessing=this;
+        programmaProcessing = this;
     }
 
     /**
@@ -156,7 +156,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      * @brief reset
      * <p>
      * azzera glia attributi per iniziare una nuova partita.
-     * modifica {@code giocatore}, {@code giocoPartito}, {@code gameOver}, {@code forme} e {@code contatore}
+     * modifica {@code giocatore}, {@code giocoPartito}, {@code gameOver}, {@code forme}, {@code contatore} e {@code tasto}
      */
     private void reset() {
         giocatore = new Giocatore();
@@ -170,6 +170,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         gameOver = false;
         forme = new Forme();
         contatore = 0;
+        tasto = -1;
         loop(); //fa ripartire il loop
     }
 
@@ -191,8 +192,8 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             file.ordina();
             String classifica = file.getFileDiTesto();
             String[] pos = classifica.split(";");
-            for (int i = 0; i<pos.length;i++) {
-                text("alla posizione " + i + ": " + pos[i], 100, (i+1)*25);
+            for (int i = 0; i < pos.length; i++) {
+                text("alla posizione " + i + ": " + pos[i], 100, (i + 1) * 25);
             }
         }
     }
