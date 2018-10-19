@@ -1,15 +1,11 @@
 package com.processing.sketch;
 import processing.core.PApplet;
 
-//banana
 import java.util.Random;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
-import static javax.swing.JOptionPane.NO_OPTION;
-import static javax.swing.JOptionPane.CLOSED_OPTION;
-import java.awt.Color;
 
 public class Progettoopendaytetris extends processing.core.PApplet {
     public static void main(String[] args) {
