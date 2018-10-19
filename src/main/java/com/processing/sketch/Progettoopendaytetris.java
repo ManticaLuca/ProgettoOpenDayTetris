@@ -25,10 +25,9 @@ public class Progettoopendaytetris extends processing.core.PApplet {
  * @author Giacomo Orsenigo
  * @version 1.0
  */
-    /**
-     * giocatore
-     */
-    FileDiTesto file = new FileDiTesto(sketchPath());
+    inputTastiera tastiera=new inputTastiera();
+
+    public static PApplet programmaProcessing;
     /**
      * giocatore
      */
@@ -38,6 +37,16 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      * oggetto della classe {@code forme} che contiene tutte le forme del gioco
      */
     private Forme forme = new Forme();
+    /**
+     * contatore delle mosse
+     */
+    private int contatore = 0;
+
+    /**
+     * giocatore
+     */
+    FileDiTesto file = new FileDiTesto(sketchPath());
+
 
     /**
      * D
@@ -45,10 +54,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      */
     private int delay = 300;
 
-    /**
-     * contatore delle mosse
-     */
-    private int contatore = 0;
+
 
     /**
      * grandezza di ogni quadrato
@@ -76,7 +82,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     private boolean gameOver = false;
 
 
-    private char tasto;
+    private int tasto;
 
 
     /**
@@ -87,7 +93,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      */
     public void keyPressed() {
         if (giocoPartito)
-            tasto = Character.toLowerCase(key);
+            tasto = tastiera.LeggiInput();
         else
             giocoPartito = true;
     }
@@ -113,6 +119,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     public void setup() {
         grandezzaQuadrato = height / 20;  //Si assegna alla grandezza del quadrato 1/20 della larghezza della finestra
         reset();
+        programmaProcessing=this;
     }
 
     /**
@@ -217,17 +224,17 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         repaint();
         System.out.println(tasto);
         switch (tasto) {
-            case 'a':
+            case 0:
                 forme.spostaAttivaSinistra();
                 break;
-            case 'd':
+            case 1:
                 forme.spostaAttivaDestra();
                 break;
-            case 's':
+            case 3:
                 spostaGiu();
                 giocatore.addPunteggio(10);
                 break;
-            case 'w':
+            case 2:
                 forme.ruotaFiguraAttiva();
                 break;
             case ' ':
@@ -243,7 +250,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             checkColonna();
         }
         checkFormaAttiva();
-        tasto = 0;
+        tasto = -1;
     }
 
     /**
