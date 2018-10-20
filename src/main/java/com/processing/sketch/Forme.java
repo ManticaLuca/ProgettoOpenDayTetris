@@ -3,7 +3,7 @@ package com.processing.sketch;
 import processing.core.PApplet;
 
 import static processing.core.PApplet.println;
-
+import static com.processing.sketch.gameConstants.*;
 /**
  * @author commenti Lamarque Matteo
  * @version 1.0
@@ -12,7 +12,6 @@ import static processing.core.PApplet.println;
 
 public class Forme {
 
-    public static final int grandezzaQuadrato = 25;
 
     private Forma[] elementi;
 
