@@ -76,14 +76,16 @@ public class tetris {
         }
 
         if (contatore % mossePerTurno == 0) {
-            //inizio dei controlli per le righe e le colonne
-            checkRiga();
             checkColonna();
         }
         checkFormaAttiva();
         contatore++;
     }
 
+    private void disattivaFormaAttiva(){
+        forme.disattivaFormaAttiva();
+        checkRiga();
+    }
     /**
      * @brief controllo riga
      * <p>
@@ -97,16 +99,7 @@ public class tetris {
             while (i >= 0) {
                 controlloRiga = forme.controlloRigaCompleta(i);
                 if (controlloRiga) {
-                    //quando la riga Ã¨ completa si modifica il punteggio del giocatore
-//                    pushMatrix();
-//                    fill(255);
-//                    text(giocatore.getPunteggio(), 3 * width / 5 + grandezzaQuadrato, 6 * grandezzaQuadrato + 150);
-//                    popMatrix();
-
                     giocatore.addPunteggio(100);
-
-                    //ridisegno figure spostate dopo aver cancellato la riga completata
-                    //repaint();
                 } else
                     i -= grandezzaQuadrato;
             }
@@ -156,7 +149,7 @@ public class tetris {
      */
     public void spostaGiu() {
         if (!forme.spostaAttivaGiu())
-            forme.disattivaFormaAttiva();
+            disattivaFormaAttiva();
     }
 
     /**
@@ -170,7 +163,7 @@ public class tetris {
         for (int i = 0; i < height/grandezzaQuadrato; i++) {
             giocatore.addPunteggio(10);
             if (!forme.spostaAttivaGiu()) {
-                forme.disattivaFormaAttiva();
+                disattivaFormaAttiva();
                 break;  //per velocizzare
             }
         }
