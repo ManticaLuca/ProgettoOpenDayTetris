@@ -22,14 +22,23 @@ public class Progettoopendaytetris extends processing.core.PApplet {
      * @author Giacomo Orsenigo
      * @version 1.0
      */
+
+    /**
+     * @author Giacomo Orsenigo
+     * oggetto di classe {@code inputTastiera} per leggere da tastiera
+     */
     inputTastiera tastiera = new inputTastiera();
 
     public static PApplet programmaProcessing;  //////////per intellij
 
-
+    /**
+     * @author Giacomo Orsenigo
+     * file su cui scrivere la classifica
+     */
     private FileDiTesto file = new FileDiTesto(sketchPath());
 
     /**
+     * @author Giacomo Orsenigo
      * variabile che va a true se il gioco è iniziato
      */
     private boolean giocoPartito = false;
@@ -37,20 +46,31 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
 
     /**
+     * @author Giacomo Orsenigo
      * memorizza le coordinate di un quadrato
      */
     private String parts[];
 
+    /**
+     * @author Giacomo Orsenigo
+     * teteis
+     */
     private tetris game = new tetris();
 
+    /**
+     * @author Giacomo Orsenigo
+     * tasto premuto
+     */
     private int tasto;
 
 
     /**
+     * @author Giacomo Orsenigo
      * @brief tasto premuto
      * <p>
      * evento che si verifica quando viene premuto un tasto
      * modifica {@code tasto} e {@code giocoPartito}
+     * @see inputTastiera#LeggiInput()
      */
     public void keyPressed() {
         if (giocoPartito)
@@ -60,6 +80,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief settings
      * <p>
      * ridimensiona la finestra
@@ -69,6 +90,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief inizializza la finestra e gli attributi
      * <p>
      * crea l'interfaccia grafica e inizializza gli attributi
@@ -80,19 +102,23 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief loop
      * <p>
      * funzione loop che visualizza il menù iniziale e disegna la schermata di
-     * gioco al primo ciclo e continua a richiamare {@code faiMossa} finchè il
-     * giocatore non perde. Incrementa a ogni ciclo {@code contatore} e modifica
-     * {@code inizio}
+     * gioco al primo ciclo e continua a richiamare {@code tetris.faiMossa} finchè il
+     * giocatore non perde. A ogni ciclo incrementa {@code tetris.contatore} e azzera {@code tasto}
+     * @see #menuIniziale()
+     * @see #schermataDiGioco()
+     * @see #repaintForme()
+     * @see tetris#faiMossa(int)
      */
     public void draw() {
         if (!giocoPartito) {
             menuIniziale(); //Visualizzazione del menu iniziale
         } else {
             schermataDiGioco();
-            /**
+            /*
              * controlla se la variabile gameover Ã¨ true ed in caso positivo
              * termina la partita
              */
@@ -107,10 +133,12 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief reset
      * <p>
-     * azzera glia attributi per iniziare una nuova partita.
-     * modifica {@code giocatore}, {@code giocoPartito}, {@code gameOver}, {@code forme}, {@code contatore} e {@code tasto}
+     * azzera gli attributi per iniziare una nuova partita. Imposta il nuovo nome al giocatore ({@code game.giocatore.nickname})
+     * modifica {@code giocoPartito} e {@code tasto}
+     * @see tetris#reset()
      */
     private void reset() {
         game.reset();
@@ -126,12 +154,13 @@ public class Progettoopendaytetris extends processing.core.PApplet {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief game over
      * <p>
      * scrive su file il punteggio e chiede se ricominciare o visuaizzare la classifica (ordinata).
      * collafora con la classe {@code FileDiTesto}
-     * @see FileDiTesto#scriviSuFileESuVettore(string, int)
-     * @see FileDiTesto#visualizzaClassifica()
+     * @see FileDiTesto#scriviSuFileESuVettore(String, int)
+     * @see FileDiTesto#getFileDiTesto()
      */
     private void gameOver() {
         background(0);
@@ -151,9 +180,10 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
 
     /**
-     * @brief ridisegna
+     * @author Giacomo Orsenigo
+     * @brief repaint
      * <p>
-     * ridisegna la finestra di gioco
+     * ridisegna la forme del gioco
      */
     private void repaintForme() {
         for (int k = 0; k < game.getForme().getNumEl(); k++) {
@@ -171,6 +201,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
 
     /**
+     * @author Giacomo Orsenigo
      * @brief menù iniziale
      * <p>
      * disegna il menù iniziale e scrive le istruzioni
@@ -192,10 +223,11 @@ public class Progettoopendaytetris extends processing.core.PApplet {
         popMatrix();
 
         textSize(15);
-        text("Istruzioni:\npremere\n[a] per spostarsi a sinistra\n[d] per spostartsi a destra\n[s] per scendere\n[w] per ruotare\n[spazio] per scendere in fondo", 50, 320);
+        text("Istruzioni:\npremere\n[a o \u2190] per spostarsi a sinistra\n[d o \u2192] per spostartsi a destra\n[s o \u2193] per scendere\n[w o \u2191] per ruotare\n[spazio] per scendere in fondo", 50, 320);
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief disegna la schermata di gioco
      * <p>
      * disegna la schermata di gioco con il nome del giocatore e il punteggio

@@ -4,21 +4,25 @@ package com.processing.sketch; /**
  */
 
 /**
+ * @author Giacomo Orsenigo
  * @brief La classe gestisce un giocatore, memorizzando nome e punteggio
  */
 public class Giocatore {
 
     /**
+     * @author Giacomo Orsenigo
      * nickname
      */
     private String nickname;
 
     /**
+     * @author Giacomo Orsenigo
      * punteggio
      */
     private int punteggio;
 
     /**
+     * @author Giacomo Orsenigo
      * @brief costruttore vuoto
      *
      * inizializza {@code nickname} e {@code punteggio}
@@ -29,6 +33,7 @@ public class Giocatore {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief costruttore con parametri
      *
      * inizializza {@code nickname} e {@code punteggio}
@@ -41,6 +46,7 @@ public class Giocatore {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief modifica il {@code nome}
      *
      * @param nome nuovo nome
@@ -50,6 +56,7 @@ public class Giocatore {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief modifica il {@code punteggio}
      *
      * @param punteggio nuovo punteggio
@@ -59,6 +66,7 @@ public class Giocatore {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief get {@code nickname}
      *
      * @return nickname
@@ -68,6 +76,7 @@ public class Giocatore {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief get {@code punteggio}
      *
      * @return punteggio
@@ -77,6 +86,7 @@ public class Giocatore {
     }
 
     /**
+     * @author Giacomo Orsenigo
      * @brief toString
      *
      * ritorna una stringa che rappresenta il giocatore
