@@ -50,12 +50,12 @@ public class FileDiTesto {
      *  inizializza {@code elementiPresenti}, inizializza il {@code vettore} statico a {@code MAX}, crea un file.txt
      */
     public FileDiTesto(String path) {
-        /**
+        /*
          * numero elementiPresenti nel vettore
          */
         elementiPresenti = 0;
 
-        /**
+        /*
          *inserisco dimensione al vettore
          */
         vettore = new Giocatore[MAX];
