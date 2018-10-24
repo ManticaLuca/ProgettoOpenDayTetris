@@ -8,7 +8,7 @@ import java.util.Random;
  * @author Ferrareis Christian
  * @version 1.0
  * @brief Classe che gestisce la forma degli oggetti.
- * <p>
+ *
  * Classe colore utilizzata da ProgettoOpenDayTetris, permette di gestire la forma degli oggetti
  */
 
