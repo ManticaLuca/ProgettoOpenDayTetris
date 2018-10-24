@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 /**
@@ -11,106 +10,93 @@ import java.util.*;
 public class Colore {
 
 
-  /**
-   * colore RED
-   */
-  private int red;
-  /**
-   * colore GREEN
-   */
-  private int green;
-  /**
-   * colore BLUE
-   */
-  private int blue;
+    /**
+     * colore RED
+     * @author Ferrareis Christian
+     */
+    private int red;
+    /**
+     * colore GREEN
+     * @author Ferrareis Christian
+     */
+    private int green;
+    /**
+     * colore BLUE
+     * @author Ferrareis Christian
+     */
+    private int blue;
 
-  /**
-   * @brief costruttore vuoto
-   */
-  public Colore() {
-    red = 0;
-    green = 0;
-    blue = 0;
-  }
-
-  /**
-   * @param r R
-   * @param g G
-   * @param b B
-   * @brief costruttore della classe Colore
-   */
-  public Colore(int r, int g, int b) {
-    red = r;
-    green = g;
-    blue = b;
-  }
-
-  /**
-   * @param c colore da copiare
-   * @brief effettua una copia del colore dato
-   */
-  public Colore(Colore c) {
-    red = c.getR();
-    green = c.getG();
-    blue = c.getB();
-  }
-
-  /**
-   * @return r il valore di R
-   * @brief restituisce il valore di R
-   */
-  public int getR() {
-    return red;
-  }
-
-  /**
-   * @return r il valore di G
-   * @brief restituisce il valore di G
-   */
-  public int getG() {
-    return green;
-  }
-
-  /**
-   * @return r il valore di B
-   * @brief restituisce il valore di B
-   */
-  public int getB() {
-    return blue;
-  }
-
-  /**
-   * @brief imposta il colore della forma dato il numero rappresentante il tipo: 0 linea azzurra; 1 quadrato giallo; 2 forma "l" arancione; 3 forma "j" blu; 4 forma "z" rosso;
-   * 5 forma "s" verde; 6 forma"t" viola;
-   */
-  public void setColore(int tipo) {
-    switch(tipo) {
-    case 0:
-      red = 51;
-      green = 204;
-      blue = 255;
-      break;
-    case 1:
-      red = 255;
-      green = 255;
-      break;
-    case 2:
-      red = 255;
-      green = 153;
-      break;
-    case 3:
-      blue = 255;
-      break;
-    case 4:
-      red = 255;
-      break;
-    case 5:
-      green = 255;
-      break;
-    case 6:
-      red = 204;
-      blue = 253;
-      break;
+    /**
+     * @brief costruttore vuoto che porta a 0 {@code red}, {@code green} e {@code blue
+     * @author Ferrareis Christian
+     */
+    public Colore() {
+        red = 0;
+        green = 0;
+        blue = 0;
     }
-  }
+
+    /**
+     * @param r R
+     * @param g G
+     * @param b B
+     * @brief costruttore della classe Colore, assegna i valori dati a  {@code red}, {@code green} e {@code blue}
+     * @author Ferrareis Christian
+     */
+    public Colore(int r, int g, int b) {
+        red = r;
+        green = g;
+        blue = b;
+    }
+
+    /**
+     * @param c colore da copiare
+     * @brief effettua una copia del colore passato, va quindi a ad assegnare a {@code red}, {@code green} e {@code blue} i valori rgb del Colore passato
+     * @author Ferrareis Christian
+     */
+    public Colore(Colore c) {
+        red = c.getR();
+        green = c.getG();
+        blue = c.getB();
+    }
+
+    /**
+     * @return r il valore di red
+     * @brief restituisce il valore di {@code red}
+     * @author Ferrareis Christian
+     */
+    public int getR() {
+        return red;
+    }
+
+    /**
+     * @return r il valore di green
+     * @brief restituisce il valore di {@code green}
+     * @author Ferrareis Christian
+     */
+    public int getG() {
+        return green;
+    }
+
+    /**
+     * @return r il valore di blue
+     * @brief restituisce il valore di {@code blue}
+     * @author Ferrareis Christian
+     */
+    public int getB() {
+        return blue;
+    }
+
+    /**
+     * @brief imposta il colore in base ai parametri, va quindi a modificare {@code red}, {@code green} e {@code blue}
+     * @param red rosso
+     * @param green verde
+     * @param blue blu
+     * @author Ferrareis Christian
+     */
+    public void setColore(int red, int green, int blue) {
+        this.blue = blue;
+        this.green = green;
+        this.red = red;
+    }
 }

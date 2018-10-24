@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,54 +14,71 @@ import java.io.IOException;
 
 /**
  * @author Mantica Luca
- * @brief la classe gestisce "classifica.txt"
+ * @brief la classe gestisce la classifica
  */
-
-
-public class FileDiTesto{
-         File file = new File("classifica.txt");
+public class FileDiTesto {
     /**
-     * @brief numero di elementi all'interno del vettore
+     * @brief file di scrittura
+     * @author Mantica Luca
+     */
+    File file;
+    
+    /**
+     * @brief numero di elementi all'interno del {@code vettore}
+     * @author Mantica Luca
      */
     private int elementiPresenti;
 
     /**
-     * @brief vettore di oggetti
+     * @brief vettore di oggetti Giocatore
+     * @author Mantica Luca
      */
     private Giocatore vettore[];
 
     /**
-     * @brief numero massimo di elemnti all'interno del vettore
+     * @brief numero massimo di elemnti all'interno del {@code vettore}
+     * @author Mantica Luca
      */
     private final int MAX = 100;
 
     /**
      * @brief costruttore, inizializzazione vettore
+     *
+     *  inizializza {@code elementiPresenti}, inizializza il {@code vettore} statico a {@code MAX}, crea un file.txt
+     * @author Mantica Luca
      */
-    public FileDiTesto() {
-        /**
+    public FileDiTesto(String path) {
+        /*
          * numero elementiPresenti nel vettore
          */
         elementiPresenti = 0;
-        file.delete();
-        try{
-          file.createNewFile();
-        }catch(Exception e){
-          e.printStackTrace();
-        }
-        /**
+
+        /*
          *inserisco dimensione al vettore
          */
         vettore = new Giocatore[MAX];
+
+
+        file = new File(path + "\\classifica.txt");
+        println("File: "+path + "\\classifica.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("ERRORE FILE");
+        }
     }
 
     /**
-     * @param nome      nome del giocatore
+     * @param nome nome del giocatore
      * @param punteggio punteggio del giocatore
      * @return variabile boolean di controllo successo scrittura
-     * @brief inserisce il gioctore nel vettore e nel txt.
-     * <p>
-     * ciao
+     * @brief inserisce il gioctore nel {@code vettore} e nel txt. 
+     *
+     *  modifica {@code elementiPresenti}
+     * @author Mantica Luca
      */
     public boolean scriviSuFileESuVettore(String nome, int punteggio) {
         /*
@@ -75,8 +91,6 @@ public class FileDiTesto{
             /*
              * preparo il file per la scrittura
              */
-            if (!file.exists())
-                file.createNewFile(); //<>//
 
             FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -84,7 +98,7 @@ public class FileDiTesto{
             /*
              * unisco i parametri, ovvero gli attributi del giocatore in una sola variabile
              */
-            String stringa = nome + ": " + punteggio;
+            String stringa = nome + "," + punteggio;
 
             /*
              * preparo a scrivere su file
@@ -133,34 +147,39 @@ public class FileDiTesto{
     /**
      * @return tuttoIlFile variabile contenente il file txt
      * @brief copia il file txt dentro a una variabile string
+     * @author Mantica Luca
      */
-    public String getFileDiTesto() throws FileNotFoundException, IOException {
-
-        /*
-         * preparo per leggere il file
-         */
-        BufferedReader reader = new BufferedReader(new FileReader("classifica.txt"));
-        String line;
-
-        /*
-         * leggo la riga
-         */
-        line = reader.readLine();
+    public String getFileDiTesto()  {
 
         /*
          * dichiaro variabile di tipo String per salvare poi in futuro tutto il file
          */
         String tuttoIlFile = "";
+        try {
+            /*
+             * preparo per leggere il file
+             */
+            BufferedReader reader = new BufferedReader(new FileReader(file.getPath()));
+            String line;
 
-        /*
-         * salvo ogni riga del file dentro una variabile finchè il file non contiene alcuna riga
-         */
-        while (line != null) {
-
-            tuttoIlFile = tuttoIlFile + line + ";";
+            /*
+             * leggo la riga
+             */
             line = reader.readLine();
-        }
 
+
+            /*
+             * salvo ogni riga del file dentro una variabile finchè il file non contiene alcuna riga
+             */
+            while (line != null) {
+
+                tuttoIlFile = tuttoIlFile + line + ";";
+                line = reader.readLine();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+            System.err.println("ERRORE FILE");
+        }
         /*
          * returna tutto il file dentro una variabile
          */
@@ -169,7 +188,10 @@ public class FileDiTesto{
 
     /**
      * @return ordinato variabile booleana per sapere se l'ordinamento è avvenuto
-     * @brief ordina il vettore e il txt dal giocatore col punteggio piu alto a quello piu basso
+     * @brief ordina il {@code vettore} e il txt
+     *
+     *  ordina il vettore e il txt dal giocatore col punteggio piu alto a quello piu basso
+     * @author Mantica Luca
      */
     public boolean ordina() {
 
@@ -189,8 +211,7 @@ public class FileDiTesto{
             /*
              * dichiaro per leggere il file classifica.txt
              */
-            BufferedReader reader = new BufferedReader(new FileReader("classifica.txt"));
-            File file2 = new File("temp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file.getPath()));
             FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
 
@@ -231,7 +252,7 @@ public class FileDiTesto{
              * scrivo sul file il vettore ordinato
              */
             for (int i = 0; i < elementiPresenti; i++) {
-                tutto = vettore[i].getNickname() + ": " + vettore[i].getPunteggio();
+                tutto = vettore[i].getNickname() + "," + vettore[i].getPunteggio();
 
                 bw.write(tutto + "\n");
                 //bw.close();
@@ -247,53 +268,13 @@ public class FileDiTesto{
     }
 
     /**
-     * @brief visualizza gli elementi all'interno del vettore
+     * @brief visualizza gli oggetti Giocatore all'interno del {@code vettore}
+     * @author Mantica Luca
      */
     public void visualizza() {
         for (int i = 0; i < elementiPresenti; i++) {
             System.out.println(vettore[i].toString());
         }
     }
-
-    /**
-     * @brief visualizza completamente il file txt
-     */
-    public void visualizzaClassifica() {
-        String line;
-        try {
-            int i = 0, y = 100, x = 20;
-            BufferedReader reader = createReader("classifica.txt");
-            //prendo la prima linea
-            line = reader.readLine();
-            background(255);
-            textSize(20);
-            fill(0);
-            text("Classifica:",x,y-50);
-            //prendo ogni linea del file e la scrivo incrementando la posizione
-            //continua fino a quando il file è finito
-            while (line != null) {
-                text("alla posizione " + (i+1) + "-> " + line, x, y);
-                i++;
-                y+=20;
-                line = reader.readLine();
-            }
-        }
-
-        //stampa l'errore
-        catch (IOException e) {
-            e.printStackTrace();
-            line = null;
-        }
-        if (line == null) {
-            // Stop reading because of an error or file is empty
-            noLoop();
-        } else {
-            String[] pieces = split(line, TAB);
-            int x = Integer.parseInt(pieces[0]);
-            int y = Integer.parseInt(pieces[1]);
-            point(x, y);
-        }
-    }
-
 
 }
