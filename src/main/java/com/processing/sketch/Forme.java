@@ -19,7 +19,7 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @brief costruttore vuoto: inizializza il vettore di elementi e il numero di elementi
+     * @brief costruttore vuoto: inizializza {@code elementi} e {@code numEl}
      */
     public Forme() {
         elementi = new Forma[1000000];
@@ -29,7 +29,7 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @brief inserisci un nuovo elemento nel vettore. Posiziona ogni quadrato della forma(la forma è costituita da più quadrati uniti) in base alle loro forma(linea(4 linee in orizontale), quadrato(4 quadrati che ne formano uno pù grande), "l" normale, "l" rovesciata, ecc.)
+     * @brief inserisci un nuovo elemento negli {@code elementi}. Posiziona ogni quadrato di {@code forme}({@code forma} è costituito da più quadrati uniti) in base alle loro {@code forma}(linea(4 linee in orizontale), quadrato(4 quadrati che ne formano uno pù grande), "l" normale, "l" rovesciata, ecc.)
          * In riassunto: 0 linea; 1 quadrato; 2 forma "l" normale; 3 forma
          * "l" rovesciata; 4 forma "z" normale; 5 forma "z" rovesciata; 6 forma
          * "t";
@@ -141,7 +141,7 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @brief ruota una figura attiva(non ancora arrivata a contatto con le altre figure) tramite la sua forma, il verso e la sua posizione posizione. Ruota quindi ogni quadrato che la costituisce(ogni forma è costituita da più quadrati).
+     * @brief ruota {@code forme} attiva(non ancora arrivata a contatto con le altre {@code forme}) tramite la sua forma, il verso e la sua posizione posizione. Ruota quindi ogni quadrato che la costituisce(ogni forma è costituita da più quadrati).
      */
     public void ruotaFiguraAttiva() {
         Forma forma = new Forma(elementi[numEl - 1]);
@@ -373,7 +373,7 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @brief imposta una figura non attiva nel momento in cui va a contatto con le altre
+     * @brief imposta  {@code figure} non attiva nel momento in cui va a contatto con le altre
      */
     public void disattivaFormaAttiva() {
         getFormaAttiva().setAttiva(false);
@@ -383,7 +383,7 @@ public class Forme {
      * @author Lamarque Matteo
      * @param posizione(x e y).
      * @return ritorna vero se è occupata e falso se non è occupata
-     * @brief controlla se una forma occupa una posizione data.
+     * @brief controlla se {@code forme} occupa una posizione data.
      */
     public boolean ricerca(int posX, int posY) {
         for (int i = 0; i < numEl - 1; i++) {
@@ -396,7 +396,7 @@ public class Forme {
     /**
      * @author Lamarque Matteo
      * @param posizione dell'y nel piano cartesiano
-     * @brief sposta tutte le forme passive che hanno come y nel piano cartesiano una y data
+     * @brief sposta tutte le {@code forme} passive che hanno come y nel piano cartesiano una y data
      */
     public void spostaFormaPassiva(int posY) {
         for (int i = 0; i < numEl; i++) {
@@ -408,8 +408,8 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @return numero di elementi
-     * @brief prende il numero di elementi
+     * @return {@code numEl}
+     * @brief prende {@code numEl}
      */
     public int getNumEl() {
         return numEl;
@@ -419,7 +419,7 @@ public class Forme {
      * @author Lamarque Matteo
      * @param posizione
      * @return forma
-     * @brief prende la forma data la posizione
+     * @brief prende {@code forme} dati gli {@code elementi}
      */
     public Forma getForma(int i) {
         return elementi[i];
@@ -429,7 +429,7 @@ public class Forme {
      * @author Lamarque Matteo
      * @param posizione da cercare
      * @return false
-     * @brief cerca un elemento data la posizione
+     * @brief cerca {@code elementi} data la posizione
      */
     public boolean ricerca(int posY) {
         for (int i = 0; i < elementi[numEl - 1].getNumElQuadrati(); i++) {
@@ -446,7 +446,7 @@ public class Forme {
     }
     /**
      * @author Lamarque Matteo
-     * @brief sposta la figura a destra
+     * @brief sposta la {@code forme} a destra
      */
     public boolean spostaAttivaDestra() {
         //sposto in base al valore seriale destro
@@ -485,7 +485,7 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @brief sposta la figura a sinistra
+     * @brief sposta {@code forme} a sinistra
      */
     public boolean spostaAttivaSinistra() {
         Forma forma = getFormaAttiva();
@@ -522,7 +522,7 @@ public class Forme {
 
     /**
      * @author Lamarque Matteo
-     * @brief sposta la figura in basso
+     * @brief sposta {@code forme} in basso
      */
     public boolean spostaAttivaGiu() {
         Forma formaGen = getFormaAttiva();
