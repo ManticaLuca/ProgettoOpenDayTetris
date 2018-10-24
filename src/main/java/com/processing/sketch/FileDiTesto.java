@@ -18,8 +18,6 @@ import java.io.IOException;
  * @author Mantica Luca
  * @brief la classe gestisce "classifica.txt"
  */
-
-
 public class FileDiTesto {
     /**
      * @author Mantica Luca
