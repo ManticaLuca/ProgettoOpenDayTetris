@@ -53,7 +53,7 @@ public class Progettoopendaytetris extends processing.core.PApplet {
 
     /**
      * @author Giacomo Orsenigo
-     * teteis
+     * tetris
      */
     private tetris game = new tetris();
 

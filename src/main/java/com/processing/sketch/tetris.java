@@ -153,7 +153,6 @@ public class tetris {
         }
     }
 
-
     /**
      * @author Giacomo Orsenigo
      * @brief aggiunge nuove forme

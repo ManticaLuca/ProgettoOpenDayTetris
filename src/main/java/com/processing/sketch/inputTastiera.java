@@ -7,9 +7,17 @@ package com.processing.sketch;
 import static com.processing.sketch.Progettoopendaytetris.programmaProcessing;
 import static processing.core.PConstants.*;
 
+/**
+ * @author Giacomo Orsenigo
+ * @brief la classe gestisce l'input da tastiera
+ */
 public class inputTastiera {
 
-
+    /**
+     * @author Giacomo Orsenigo
+     * @return carattere letto
+     * @brief legge un carattere da tastiera
+     */
     public int LeggiInput() {
         if (programmaProcessing.keyPressed == true /*&& programmaProcessing.key == CODED*/) {
             switch (Character.toLowerCase(programmaProcessing.keyCode)) {
