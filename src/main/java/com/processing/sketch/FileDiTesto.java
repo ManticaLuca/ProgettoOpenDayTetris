@@ -21,25 +21,35 @@ import java.io.IOException;
 
 
 public class FileDiTesto {
-
-    File file;
     /**
+     * @author Mantica Luca
+     * @brief file di scrittura
+     */
+    File file;
+    
+    /**
+     * @author Mantica Luca
      * @brief numero di elementi all'interno del vettore
      */
     private int elementiPresenti;
 
     /**
+     * @author Mantica Luca
      * @brief vettore di oggetti
      */
     private Giocatore vettore[];
 
     /**
+     * @author Mantica Luca
      * @brief numero massimo di elemnti all'interno del vettore
      */
     private final int MAX = 100;
 
     /**
+     * @author Mantica Luca
      * @brief costruttore, inizializzazione vettore
+     *
+     *  inizializza elementiPresenti, crea un vettore stitico di dimensione MAX, crea un file.txt
      */
     public FileDiTesto(String path) {
         /**
@@ -65,12 +75,13 @@ public class FileDiTesto {
     }
 
     /**
-     * @param nome      nome del giocatore
+     * @author Mantica Luca
+     * @param nome nome del giocatore
      * @param punteggio punteggio del giocatore
      * @return variabile boolean di controllo successo scrittura
-     * @brief inserisce il gioctore nel vettore e nel txt.
-     * <p>
-     * ciao
+     * @brief inserisce il gioctore nel vettore e nel txt. 
+     *
+     *  modifica elementiPresenti
      */
     public boolean scriviSuFileESuVettore(String nome, int punteggio) {
         /*
@@ -137,6 +148,7 @@ public class FileDiTesto {
     }
 
     /**
+     * @author Mantica Luca
      * @return tuttoIlFile variabile contenente il file txt
      * @brief copia il file txt dentro a una variabile string
      */
@@ -178,8 +190,11 @@ public class FileDiTesto {
     }
 
     /**
+     * @author Mantica Luca
      * @return ordinato variabile booleana per sapere se l'ordinamento è avvenuto
-     * @brief ordina il vettore e il txt dal giocatore col punteggio piu alto a quello piu basso
+     * @brief ordina il vettore e il txt
+     *
+     *  ordina il vettore e il txt dal giocatore col punteggio piu alto a quello piu basso
      */
     public boolean ordina() {
 
@@ -256,6 +271,7 @@ public class FileDiTesto {
     }
 
     /**
+     * @author Mantica Luca
      * @brief visualizza gli elementi all'interno del vettore
      */
     public void visualizza() {
@@ -263,41 +279,5 @@ public class FileDiTesto {
             System.out.println(vettore[i].toString());
         }
     }
-
-//    /**
-//     * @brief visualizza completamente il file txt
-//     */
-//    public void visualizzaClassifica() {
-//        String line;
-//        try {
-//            int i = 0, y = 100, x = 250;
-//            BufferedReader reader = createReader(new File(file.getPath()));
-//            //prendo la prima linea
-//            line = reader.readLine();
-//
-//            //prendo ogni linea del file e la scrivo incrementando la posizione
-//            //continua fino a quando il file è finito
-//            while (line != null) {
-//                text("alla posizione " + i + ": " + line, x, y);
-//                i++;
-//                y = y + 20;
-//                line = reader.readLine();
-//            }
-//        }
-//
-//        //stampa l'errore
-//        catch (IOException e) {
-//            e.printStackTrace();
-//            line = null;
-//        }
-//        if (line == null) {
-//            // Stop reading because of an error or file is empty
-//        } else {
-//            String[] pieces = split(line, TAB);
-//            int x = Integer.parseInt(pieces[0]);
-//            int y = Integer.parseInt(pieces[1]);
-//            point(x, y);
-//        }
-//    }
 
 }
