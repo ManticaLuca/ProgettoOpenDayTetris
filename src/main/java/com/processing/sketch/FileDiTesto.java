@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  * @author Mantica Luca
- * @brief la classe gestisce "classifica.txt"
+ * @brief la classe gestisce la classifica
  */
 public class FileDiTesto {
     /**
@@ -27,19 +27,19 @@ public class FileDiTesto {
     
     /**
      * @author Mantica Luca
-     * @brief numero di elementi all'interno del vettore
+     * @brief numero di elementi all'interno del {@code vettore}
      */
     private int elementiPresenti;
 
     /**
      * @author Mantica Luca
-     * @brief vettore di oggetti
+     * @brief vettore di oggetti Giocatore
      */
     private Giocatore vettore[];
 
     /**
      * @author Mantica Luca
-     * @brief numero massimo di elemnti all'interno del vettore
+     * @brief numero massimo di elemnti all'interno del {@code vettore}
      */
     private final int MAX = 100;
 
@@ -47,7 +47,7 @@ public class FileDiTesto {
      * @author Mantica Luca
      * @brief costruttore, inizializzazione vettore
      *
-     *  inizializza elementiPresenti, crea un vettore stitico di dimensione MAX, crea un file.txt
+     *  inizializza {@code elementiPresenti}, inizializza il {@code vettore} statico a {@code MAX}, crea un file.txt
      */
     public FileDiTesto(String path) {
         /**
@@ -77,9 +77,9 @@ public class FileDiTesto {
      * @param nome nome del giocatore
      * @param punteggio punteggio del giocatore
      * @return variabile boolean di controllo successo scrittura
-     * @brief inserisce il gioctore nel vettore e nel txt. 
+     * @brief inserisce il gioctore nel {@code vettore} e nel txt. 
      *
-     *  modifica elementiPresenti
+     *  modifica {@code elementiPresenti}
      */
     public boolean scriviSuFileESuVettore(String nome, int punteggio) {
         /*
@@ -190,7 +190,7 @@ public class FileDiTesto {
     /**
      * @author Mantica Luca
      * @return ordinato variabile booleana per sapere se l'ordinamento è avvenuto
-     * @brief ordina il vettore e il txt
+     * @brief ordina il {@code vettore} e il txt
      *
      *  ordina il vettore e il txt dal giocatore col punteggio piu alto a quello piu basso
      */
@@ -270,7 +270,7 @@ public class FileDiTesto {
 
     /**
      * @author Mantica Luca
-     * @brief visualizza gli elementi all'interno del vettore
+     * @brief visualizza gli oggetti Giocatore all'interno del {@code vettore}
      */
     public void visualizza() {
         for (int i = 0; i < elementiPresenti; i++) {
