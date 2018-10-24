@@ -5,7 +5,6 @@ import processing.core.PApplet;
 import static processing.core.PApplet.println;
 import static com.processing.sketch.gameConstants.*;
 /**
- * @author commenti Lamarque Matteo
  * @version 1.0
  * @brief classe che gestisce le forme
  */
@@ -19,6 +18,7 @@ public class Forme {
     private int numEl;
 
     /**
+     * @author Lamarque Matteo
      * @brief costruttore vuoto: inizializza il vettore di elementi e il numero di elementi
      */
     public Forme() {
@@ -28,7 +28,11 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @brief inserisci un nuovo elemento nel vettore. Posiziona ogni quadrato della forma(la forma è costituita da più quadrati uniti) in base alle loro forma(linea(4 linee in orizontale), quadrato(4 quadrati che ne formano uno pù grande), "l" normale, "l" rovesciata, ecc.)
+         * In riassunto: 0 linea; 1 quadrato; 2 forma "l" normale; 3 forma
+         * "l" rovesciata; 4 forma "z" normale; 5 forma "z" rovesciata; 6 forma
+         * "t";
      */
     public void inserisciNuova() {
         elementi[numEl] = new Forma();
@@ -80,7 +84,10 @@ public class Forme {
     }
 
     /**
-     * @brief controlla se una colonna è completamente occupata(per controllare se si ha perso), in tal caso ritorna
+     * @author Lamarque Matteo
+     * @brief controlla se una colonna è completamente occupata(per controllare se si ha perso), in tal caso ritorna "vero"
+     * @params colonna da controllare
+     * return vero(colonna occupata) o falso(colonna non occupata)
      */
     public boolean controlloColonna(int colonna) {
         int n = 0;
@@ -112,8 +119,9 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @param posizioneY nell'asse delle Y
-     * @brief elimina una tutti gli elementi(di conseguenza tutta la riga) con y uguale a quella data nel piano cartesiano.
+     * @brief elimina una tutti gli elementi(di conseguenza tutta la riga) con y uguale a quella data nel piano cartesiano. La eliminerà solo quando tutta la riga sarà occupata.
      */
     public void cancellaRiga(int posizioneY) {
         Forma forma = new Forma();
@@ -132,7 +140,8 @@ public class Forme {
     }
 
     /**
-     * @brief ruota una figura attiva(non ancora arrivata alla fine) tramite la sua forma, il verso e la sua posizione posizione. Ruota quindi ogni quadrato che la costituisce(ogni forma è costituita da più quadrati).
+     * @author Lamarque Matteo
+     * @brief ruota una figura attiva(non ancora arrivata a contatto con le altre figure) tramite la sua forma, il verso e la sua posizione posizione. Ruota quindi ogni quadrato che la costituisce(ogni forma è costituita da più quadrati).
      */
     public void ruotaFiguraAttiva() {
         Forma forma = new Forma(elementi[numEl - 1]);
@@ -140,11 +149,6 @@ public class Forme {
         println("PRIMA elementi = " + elementi[numEl - 1].toString());
 
         int Forma = forma.getTipo();
-        /*
-         * set della forma; 0 linea; 1 quadrato; 2 forma "l" normale; 3 forma
-         * "l" rovesciata; 4 forma "z" normale; 5 forma "z" rovesciata; 6 forma
-         * "t";
-         */
         String pos;
         int posY = -1, posX = -1;
         switch (Forma) {
@@ -330,8 +334,10 @@ public class Forme {
 
 
     /**
+     * @author Lamarque Matteo
      * @param riga da controllare
-     * @brief controlla se una riga è completamente occupata dalle figure
+     * @brief controlla se una riga è completamente occupata dalle figure per poi eliminarla se ritorna "true"
+     * return "true" se la riga è completamente occupata, altrimenti "false"
      */
     public boolean controlloRigaCompleta(int riga) {
         int n = 0;
@@ -366,6 +372,7 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @brief imposta una figura non attiva nel momento in cui va a contatto con le altre
      */
     public void disattivaFormaAttiva() {
@@ -373,6 +380,7 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @param posizione(x e y).
      * @return ritorna vero se è occupata e falso se non è occupata
      * @brief controlla se una forma occupa una posizione data.
@@ -386,6 +394,7 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @param posizione dell'y nel piano cartesiano
      * @brief sposta tutte le forme passive che hanno come y nel piano cartesiano una y data
      */
@@ -398,6 +407,7 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @return numero di elementi
      * @brief prende il numero di elementi
      */
@@ -406,6 +416,7 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @param posizione
      * @return forma
      * @brief prende la forma data la posizione
@@ -415,6 +426,7 @@ public class Forme {
     }
 
     /**
+     * @author Lamarque Matteo
      * @param posizione da cercare
      * @return false
      * @brief cerca un elemento data la posizione
@@ -432,7 +444,10 @@ public class Forme {
 
         return false;
     }
-
+    /**
+     * @author Lamarque Matteo
+     * @brief sposta la figura a destra
+     */
     public boolean spostaAttivaDestra() {
         //sposto in base al valore seriale destro
         Forma forma =  getFormaAttiva();
@@ -468,6 +483,10 @@ public class Forme {
         return possibile;
     }
 
+    /**
+     * @author Lamarque Matteo
+     * @brief sposta la figura a sinistra
+     */
     public boolean spostaAttivaSinistra() {
         Forma forma = getFormaAttiva();
         //sposto in base al valore seriale sinistro
@@ -501,6 +520,10 @@ public class Forme {
         return possibile;
     }
 
+    /**
+     * @author Lamarque Matteo
+     * @brief sposta la figura in basso
+     */
     public boolean spostaAttivaGiu() {
         Forma formaGen = getFormaAttiva();
         int numQaudrati=formaGen.getNumElQuadrati();
@@ -534,6 +557,11 @@ public class Forme {
         return possibile;
     }
 
+    /**
+     * @author Lamarque Matteo
+     * @brief ottiene la forma attiva in quel momento
+     * @return la forma attiva
+     */
     public Forma getFormaAttiva() {
         Forma attiva = null;
         for (int i = numEl-1; i >=0; i--) {   //parto dal fondo perchè probabilmente sarà l'ultima
