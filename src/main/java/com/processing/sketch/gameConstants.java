@@ -8,13 +8,13 @@ public class gameConstants {
     
     /**
      * @author Mantica Luca
-     * @brief altezza della finistra
+     * @brief altezza della finestra
      */
     public static final int height=500;
     
     /**
      * @author Mantica Luca
-     * @brief larghezza della finistra
+     * @brief larghezza della finestra
      */
     public static final int width=500;
 
