@@ -30,7 +30,7 @@ public class Colore {
 
     /**
      * @author Ferrareis Christian
-     * @brief costruttore vuoto che porta a 0 gli attributi red, green e blue
+     * @brief costruttore vuoto che porta a 0 {@code red}, {@code green} e {@code blue}
      */
     public Colore() {
         red = 0;
@@ -43,7 +43,7 @@ public class Colore {
      * @param r R
      * @param g G
      * @param b B
-     * @brief costruttore della classe Colore, assegna i valori dati agli attributi red, green e blue 
+     * @brief costruttore della classe Colore, assegna i valori dati a  {@code red}, {@code green} e {@code blue}
      */
     public Colore(int r, int g, int b) {
         red = r;
@@ -54,7 +54,7 @@ public class Colore {
     /**
      * @author Ferrareis Christian
      * @param c colore da copiare
-     * @brief effettua una copia del colore passato, va quindi a ad assegnare agli attributi red, green e blue i valori rgb del Colore passato
+     * @brief effettua una copia del colore passato, va quindi a ad assegnare a {@code red}, {@code green} e {@code blue} i valori rgb del Colore passato
      */
     public Colore(Colore c) {
         red = c.getR();
@@ -64,8 +64,8 @@ public class Colore {
 
     /**
      * @author Ferrareis Christian
-     * @return r il valore di R
-     * @brief restituisce il valore di R
+     * @return r il valore di red
+     * @brief restituisce il valore di {@code red}
      */
     public int getR() {
         return red;
@@ -73,8 +73,8 @@ public class Colore {
 
     /**
      * @author Ferrareis Christian
-     * @return r il valore di G
-     * @brief restituisce il valore di G
+     * @return r il valore di green
+     * @brief restituisce il valore di {@code green}
      */
     public int getG() {
         return green;
@@ -82,8 +82,8 @@ public class Colore {
 
     /**
      * @author Ferrareis Christian
-     * @return r il valore di B
-     * @brief restituisce il valore di B
+     * @return r il valore di blue
+     * @brief restituisce il valore di {@code blue}
      */
     public int getB() {
         return blue;
@@ -91,7 +91,7 @@ public class Colore {
 
     /**
      * @author Ferrareis Christian
-     * @brief imposta il colore in base ai parametri, va quindi a modificare gli attributi
+     * @brief imposta il colore in base ai parametri, va quindi a modificare {@code red}, {@code green} e {@code blue}
      * @param red rosso
      * @param green verde
      * @param blue blu
