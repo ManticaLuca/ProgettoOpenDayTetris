@@ -62,7 +62,37 @@ public class Forma {
             insiemeQuadrati[i] = new Quadrato();
             //numElQuadrati++;
         }
-        colore.setColore(this.getTipo());
+        setColore();
+    }
+
+    /**
+     * @brief imposta il colore della forma tipo: 0 linea azzurra; 1 quadrato giallo; 2 forma "l" arancione; 3 forma "j" blu; 4 forma "z" rosso;
+     * 5 forma "s" verde; 6 forma"t" viola;
+     */
+    public void setColore(){
+        switch(forma) {
+            case 0:
+                colore.setColore(51,204,255);
+                break;
+            case 1:
+                colore.setColore(255,255,0);
+                break;
+            case 2:
+                colore.setColore(255,153,0);
+                break;
+            case 3:
+                colore.setColore(0,0,255);
+                break;
+            case 4:
+                colore.setColore(255,0,0);
+                break;
+            case 5:
+                colore.setColore(0,255,0);
+                break;
+            case 6:
+                colore.setColore(204,0,253);
+                break;
+        }
     }
 
     /**

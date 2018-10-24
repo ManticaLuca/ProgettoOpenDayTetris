@@ -81,37 +81,14 @@ public class Colore {
     }
 
     /**
-     * @brief imposta il colore della forma dato il numero rappresentante il tipo: 0 linea azzurra; 1 quadrato giallo; 2 forma "l" arancione; 3 forma "j" blu; 4 forma "z" rosso;
-     * 5 forma "s" verde; 6 forma"t" viola;
+     * @brief imposta il colore in base ai parametri
+     * @param red rosso
+     * @param green verde
+     * @param blue blu
      */
-    public void setColore(int tipo) {
-        switch(tipo) {
-            case 0:
-                red = 51;
-                green = 204;
-                blue = 255;
-                break;
-            case 1:
-                red = 255;
-                green = 255;
-                break;
-            case 2:
-                red = 255;
-                green = 153;
-                break;
-            case 3:
-                blue = 255;
-                break;
-            case 4:
-                red = 255;
-                break;
-            case 5:
-                green = 255;
-                break;
-            case 6:
-                red = 204;
-                blue = 253;
-                break;
-        }
+    public void setColore(int red, int green, int blue) {
+        this.blue = blue;
+        this.green = green;
+        this.red = red;
     }
 }
