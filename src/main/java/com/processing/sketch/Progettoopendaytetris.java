@@ -172,8 +172,12 @@ public class Progettoopendaytetris extends processing.core.PApplet {
             file.ordina();
             String classifica = file.getFileDiTesto();
             String[] pos = classifica.split(";");
+            background(255);
+            fill(0);
+            textSize(20);
+            text("Classifica:",10,20);
             for (int i = 0; i < pos.length; i++) {
-                text("alla posizione " + i + ": " + pos[i], 100, (i + 1) * 25);
+                text((i+1) + ") " + pos[i], 20, (i + 1) * 25 + 20);
             }
         }
     }
